@@ -56,7 +56,7 @@
     <div class="bg-white py-2 collapse-inner rounded">
       <h6 class="collapse-header">Faculty component</h6>
       <a class="collapse-item" href="faculty.php">Manage Faculty</a>
-      <a class="collapse-item" href="create_faculty.php">subject allocation</a>
+      <a class="collapse-item" href="subject_allocation.php">subject allocation</a>
     </div>
   </div>
 </li>

@@ -56,6 +56,10 @@ include('includes/navbar.php');
                 <label>Date of Birth</label>
                 <input type="date" name="edit_dob" value="<?php echo $row['dob'] ?>" class="form-control">
                 </div>
+                <!-- <div class="form-group">
+                <label>Gender</label>
+                <input type="" name="edit_gender" value="<?php echo $row['dob'] ?>" class="form-control">
+                </div> -->
 
                 <div class="form-group">
                 <label>Student Image</label>

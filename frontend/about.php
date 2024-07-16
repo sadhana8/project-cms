@@ -6,12 +6,12 @@
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
-	      <form action="#" class="searchform order-lg-last">
+	      <!-- <form action="#" class="searchform order-lg-last">
           <div class="form-group d-flex">
             <input type="text" class="form-control pl-3" placeholder="Search">
             <button type="submit" placeholder="" class="form-control search"><span class="ion-ios-search"></span></button>
           </div>
-        </form>
+        </form> -->
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav mr-auto">
 	        	<li class="nav-item"><a href="index.php" class="nav-link pl-0">Home</a></li>
@@ -59,9 +59,9 @@
     	<div class="container">
     		<div class="row justify-content-center mb-5 pb-2 d-flex">
     			<div class="col-md-6 align-items-stretch d-flex">
-    				<div class="img img-video d-flex align-items-center" style="background-image: url(images/about-2.jpg);">
+    				<div class="img img-video d-flex align-items-center" style="background-image: url(images/cloude.jpg);">
     					<div class="video justify-content-center">
-								<a href="https://vimeo.com/45830194" class="icon-video popup-vimeo d-flex justify-content-center align-items-center">
+								<a href="images/video.mp4" class="icon-video popup-vimeo d-flex justify-content-center align-items-center">
 									<span class="ion-ios-play"></span>
 		  					</a>
 							</div>
@@ -132,8 +132,18 @@
 		            <div class="block-18">
 		            	<div class="icon"><span class="flaticon-doctor"></span></div>
 		              <div class="text">
-		                <strong class="number" data-number="50">0</strong>
-		                <span>Awards Won</span>
+                  <?php
+                         include "../admin/dbconfig.php";
+                            $query = "SELECT id FROM event ORDER BY id='id'";
+                                               $query_run = mysqli_query($conn,$query);
+
+                                     $row = mysqli_num_rows($query_run);
+     
+       
+		              echo  '<strong class="number" data-number='.$row.'>0</strong>';
+						?>
+		                
+		                <span>Event Happen</span>
 		              </div>
 		            </div>
 		          </div>
@@ -143,125 +153,35 @@
     	</div>
     </section>
 
-    <section class="ftco-section testimony-section">
-      <div class="container">
-        <div class="row justify-content-center mb-5 pb-2">
-          <div class="col-md-8 text-center heading-section ftco-animate">
-            <h2 class="mb-4">Student Says About Us</h2>
-            <p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p>
-          </div>
-        </div>
-        <div class="row ftco-animate justify-content-center">
-          <div class="col-md-12">
-            <div class="carousel-testimony owl-carousel">
-              <div class="item">
-                <div class="testimony-wrap d-flex">
-                  <div class="user-img mr-4" style="background-image: url(images/teacher-1.jpg)">
-                  </div>
-                  <div class="text ml-2">
-                  	<span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Racky Henderson</p>
-                    <span class="position">Father</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap d-flex">
-                  <div class="user-img mr-4" style="background-image: url(images/teacher-2.jpg)">
-                  </div>
-                  <div class="text ml-2">
-                  	<span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Henry Dee</p>
-                    <span class="position">Mother</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap d-flex">
-                  <div class="user-img mr-4" style="background-image: url(images/teacher-3.jpg)">
-                  </div>
-                  <div class="text ml-2">
-                  	<span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Mark Huff</p>
-                    <span class="position">Mother</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap d-flex">
-                  <div class="user-img mr-4" style="background-image: url(images/teacher-4.jpg)">
-                  </div>
-                  <div class="text ml-2">
-                  	<span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Rodel Golez</p>
-                    <span class="position">Mother</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap d-flex">
-                  <div class="user-img mr-4" style="background-image: url(images/teacher-1.jpg)">
-                  </div>
-                  <div class="text ml-2">
-                  	<span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Ken Bosh</p>
-                    <span class="position">Mother</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  
 
-
-		<section class="ftco-gallery">
+	<section class="ftco-gallery">
     	<div class="container-wrap">
+			
     		<div class="row no-gutters">
-					<div class="col-md-3 ftco-animate">
-						<a href="images/image_1.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/course-1.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
+			<?php
+    include "../admin/dbconfig.php";
+    $query = "SELECT * FROM student";
+    $query_run = mysqli_query($conn,$query);
+  
+    if(mysqli_num_rows($query_run)>0){
+		while($row = mysqli_fetch_assoc($query_run)){
+    ?>
+	
+						<div class="col-md-3 ftco-animate">
+						<a href="../admin/upload/student/<?php echo $row['image']; ?>" class="gallery image-popup img d-flex align-items-center">
+						<img src="../admin/upload/student/<?php echo $row['image']; ?>" style="height:350px; width:380px;">
+							<!-- <div class="icon mb-4 d-flex align-items-center justify-content-center">
     						<span class="icon-instagram"></span>
-    					</div>
+    					</div> -->
 						</a>
 					</div>
-					<div class="col-md-3 ftco-animate">
-						<a href="images/image_2.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/image_2.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-					<div class="col-md-3 ftco-animate">
-						<a href="images/image_3.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/image_3.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-					<div class="col-md-3 ftco-animate">
-						<a href="images/image_4.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/image_4.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
+					
+					<?php
+        }
+          }
+        ?>
+
         </div>
     	</div>
     </section>

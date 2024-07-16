@@ -8,7 +8,7 @@ include('includes/navbar.php');
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Subject</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Semester</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -139,13 +139,10 @@ include('includes/navbar.php');
               </form>
             </td>
 
-            <td>
-              <form action="semester_code.php" method="POST">
-                <input type="hidden" name="delete_id" value="<?php echo $row['semester_id']?>">
-                <button type="submit" name="dept_cate_deletebtn" class="btn btn-danger">DELETE</button>
-
-              </form>
-            </td>
+        
+            <td>      
+      <button type="button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" onclick="showConfirmationModal('<?php echo $row['semester_id']; ?>')">DELETE</button>
+      </td>
           
             </tr>
 
@@ -196,6 +193,41 @@ include('includes/navbar.php');
 
 </div>
 <!-- /.container-fluid -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this record? This action cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <form id="deleteForm" action="semester_code.php" method="POST">
+          <input type="hidden" name="delete_id" id="delete_id">
+          <button type="submit" name="dept_cate_deletebtn" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function showConfirmationModal(id) {
+    $('#delete_id').val(id);
+    $('#deleteModal').modal('show');
+  }
+</script>
+    <!-- <td>
+              <form action="semester_code.php" method="POST">
+                <input type="hidden" name="delete_id" value="<?php echo $row['semester_id']?>">
+                <button type="submit" name="dept_cate_deletebtn" class="btn btn-danger">DELETE</button>
+
+              </form>
+            </td> -->
 
 <?php
 include('includes/scripts.php');

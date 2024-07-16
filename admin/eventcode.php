@@ -49,7 +49,7 @@ if(isset($_POST['event_deletebtn'])){
 }
 
 if(isset($_POST['event_update_btn'])){
-
+    $updating_id = $_POST['edit_id'];
     $edit_date = $_POST['edit_date'];
      $edit_title = $_POST['edit_title'];
     $edit_description = $_POST['edit_description'];

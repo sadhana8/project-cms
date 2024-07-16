@@ -33,7 +33,7 @@ include "dbconfig.php";
        $page =1;
     }
     $offset = ($page - 1 ) * $limit;
-    $query = "SELECT * FROM semesters ORDER BY semester_id LIMIT {$offset},{$limit}";
+    $query = "SELECT * FROM attendance ORDER BY id LIMIT {$offset},{$limit}";
     $query_run = mysqli_query($conn,$query);
   
     if(mysqli_num_rows($query_run)>0){
@@ -41,7 +41,7 @@ include "dbconfig.php";
 
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <tr>
-        <th>User ID</th>
+        <th>Student ID</th>
         <th>Date</th>
         <th>Status</th>
         <th>Course</th>
@@ -50,27 +50,32 @@ include "dbconfig.php";
         <th>Course ID</th>
     </tr>
     <?php 
-           while($row = mysqli_fetch_assoc($query_run)){
- 
-            $course = $row["course"];
-            $dpt_cate = "SELECT * FROM dept_category WHERE id='$course'";
-            $dpt_cate_run = mysqli_query($conn,$dpt_cate);
-            $semester = $row["semester"];
-            $dpt_sem = "SELECT * FROM semesters WHERE semester_id='$semester'";
-            $dpt_sem_run = mysqli_query($conn,$dpt_sem);
-            $subject = $row["subject"];
-            $dpt_sub = "SELECT * FROM subject WHERE subject_id='$subject'";
-            $dpt_sub_run = mysqli_query($conn,$dpt_sub);
-    ?>
-        <tr>
-            <td><?php echo $row['id']; ?></td>
-            <td><?php echo $row['date']; ?></td>
-            <td><?php echo $row['status']; ?></td>
-            <td><?php foreach($dpt_cate_run as $dpt_row) {echo $dpt_row['name'];} ?></td>
-            <td><?php foreach($dpt_sem_run as $dpt_row) {echo $dpt_row['semester_name'];} ?></td>
-            <td><?php foreach($dpt_sub_run as $dpt_row) {echo $dpt_row['subject_name'];} ?></td>
-            <td><?php echo $row['id']; ?></td>
-        </tr>
+                   while($row = mysqli_fetch_assoc($query_run)){
+                    $userid = $row['student_id'];
+                    $dpt_std = "SELECT * FROM student WHERE id='$userid'";
+                    $dpt_std_run = mysqli_query($conn,$dpt_std);
+
+                    $course = $row['course'];
+                    $dpt_cate = "SELECT * FROM dept_category WHERE id='$course'";
+                    $dpt_cate_run = mysqli_query($conn,$dpt_cate);
+
+                    $semester = $row["semester"];
+                    $dpt_sem = "SELECT * FROM semesters WHERE semester_id='$semester'";
+                    $dpt_sem_run = mysqli_query($conn,$dpt_sem);
+                    
+                    $subject = $row["subject"];
+                    $dpt_sub = "SELECT * FROM subject WHERE subject_id='$subject'";
+                    $dpt_sub_run = mysqli_query($conn,$dpt_sub);
+            ?>
+      <tr>
+                    <td><?php foreach($dpt_std_run as $dpt_row) {echo $dpt_row['name'];} ?></td>
+                    <td><?php echo $row['date']; ?></td>
+                    <td><?php echo $row['status']; ?></td>
+                    <td><?php foreach($dpt_cate_run as $dpt_row) {echo $dpt_row['name'];} ?></td>
+                    <td><?php foreach($dpt_sem_run as $dpt_row) {echo $dpt_row['semester_name'];} ?></td>
+                    <td><?php foreach($dpt_sub_run as $dpt_row) {echo $dpt_row['subject_name'];} ?></td>
+                    <td><?php echo $row['id']; ?></td>
+                </tr>
         <?php
         }
     }

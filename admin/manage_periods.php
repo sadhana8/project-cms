@@ -83,6 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <th>Title</th>
                         <th>Start time</th>
                         <th>End Time</th>
+                        <th>DELETE</th>
                       </tr>
                     </thead>
 
@@ -96,21 +97,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <td><?php  echo $row['name']; ?> </td>
                         <td><?php  echo $row['start_time']; ?></td>
                         <td><?php  echo $row['end_time']; ?></td>
-                        <!-- <td>
+                         <!-- <td>
               <form action="periods_edit.php" method="POST">
                 <input type="hidden" name="edit_id"  value="<?php echo $row['id']?>">
                 <button type="submit" name="faculty_editbtn" class="btn btn-success">EDIT</button>
               </form>
-            </td>
+            </td> -->
 
             <td>
-              <form action="periodcode.php" method="POST">
-                <input type="hidden" name="delete_id" value="<?php echo $row['id']?>">
-                <button type="submit" name="faculty_deletebtn" class="btn btn-danger">DELETE</button>
-
-              </form>
+            <button type="button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" onclick="showConfirmationModal('<?php echo $row['id']; ?>')">DELETE</button>
+            
             </td>
-                -->
+              
                       </tr>
 
                       <?php
@@ -185,7 +183,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
          
 
       </div><!--/. container-fluid -->
+      
     </section>
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this record? This action cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+       
+        <form id="deleteForm" action="periodcode.php" method="POST">
+                <input type="hidden"  name="delete_id" id="delete_id" value="<?php echo $row['id']?>">
+                <button type="submit" name="faculty_deletebtn" class="btn btn-danger">DELETE</button>
+
+              </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function showConfirmationModal(id) {
+    $('#delete_id').val(id);
+    $('#deleteModal').modal('show');
+  }
+</script>
     <?php
 include('includes/scripts.php');
 include('includes/footer.php');

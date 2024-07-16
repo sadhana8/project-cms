@@ -1,40 +1,49 @@
-<?php 
+<?php
+include('../admin/security.php');
+include "../admin/dbconfig.php";
 
-session_start();
-include "dbconfig.php";
+if (isset($_POST['register_btn'])) {
+    $student_name = $_POST['student_name'];
+    $student_email = $_POST['student_email'];
+    $student_phone = $_POST['student_phone'];
+    $student_address = $_POST['student_address'];
+    $student_gender = $_POST['student_gender'];
+    $student_image = $_POST['student_image'];
+    $student_dob = $_POST['student_dob'];
+    $guardian_name = $_POST['guardian_name'];
+    $guardian_email = $_POST['guardian_email'];
+    $guardian_phone = $_POST['guardian_phone'];
+    $guardian_address = $_POST['guardian_address'];
 
-if(isset($_POST['savestudent'])){
+    $conn->autocommit(FALSE); // Turn off auto-commit
 
-    $name = $_POST['name'];
-    $address= $_POST['address'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $dob = $_POST['dob']; 
-    $image = $_FILES['image']['name'];
+    try {
+        // Insert student details
+        $student_query = "INSERT INTO student (name, email, phone, address,gender,image,dob) VALUES (?, ?, ?,?,?,?, ?)";
+        $stmt = $conn->prepare($student_query);
+        $stmt->bind_param("sssssss", $student_name, $student_email, $student_phone, $student_address,$student_gender, $student_image,$student_dob);
+        if (!$stmt->execute()) {
+            throw new Exception($stmt->error);
+        }
+        $student_id = $conn->insert_id;
 
-    if(file_exists("upload/" . $_FILES["image"]["name"])){
-        $store = $_FILES["image"] ["name"];
-        $_SESSION['status'] = " Image already exists. '.$store' ";
-        header('Location: student.php');
+        // Insert guardian details
+        $guardian_query = "INSERT INTO guardians (guardian_name, email, phone, address, student_id) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($guardian_query);
+        $stmt->bind_param("ssssi", $guardian_name, $guardian_email, $guardian_phone, $guardian_address, $student_id);
+        if (!$stmt->execute()) {
+            throw new Exception($stmt->error);
+        }
+
+        $conn->commit(); // Commit the transaction
+        $_SESSION['success'] = "Student and Guardian added successfully!";
+    } catch (Exception $e) {
+        $conn->rollback(); // Rollback the transaction on error
+        $_SESSION['status'] = "Failed to add student and guardian: " . $e->getMessage();
     }
 
-    else{
-
-    $query = "INSERT INTO student (`name`,`address`, `email`,`phone`,`dob`,`image`) VALUES('$name','$address','$email','$phone','$dob','$image')";
-    $query_run = mysqli_query($conn,$query);
-
-    if($query_run){
-        move_uploaded_file($_FILES["image"]["tmp_name"],"upload/student/".$_FILES["image"]["name"]);
-        $_SESSION['success']="Student Added!";
-        header('Location: student.php');
-    }
-
-    else{
-        $_SESSION['status']= "Student not added";
-        header('Location: student.php');
-    }
-    }
-
+    $conn->autocommit(TRUE); // Turn auto-commit back on
+    header('Location: student.php');
 }
 
 

@@ -123,12 +123,15 @@ include "dbconfig.php";
               </form>
             </td>
 
-            <td>
-              <form action="facultycode.php" method="POST">
-                <input type="hidden" name="delete_id" value="<?php echo $row['id']?>">
+            
+              <!-- <form action="facultycode.php" method="POST">
+                <input type="hidden" name="delete_id" value="<?php //echo $row['id']?>">
                 <button type="submit" name="faculty_deletebtn" class="btn btn-danger">DELETE</button>
 
-              </form>
+              </form> -->
+              <td>
+                <button type="button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" onclick="showConfirmationModal('<?php echo $row['id']; ?>')">DELETE</button>
+            
             </td>
           
             </tr>
@@ -182,6 +185,34 @@ include "dbconfig.php";
 </div>
 
 </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this record? This action cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <form id="deleteForm" action="facultycode.php" method="POST">
+          <input type="hidden" name="delete_id" id="delete_id">
+          <button type="submit" name="faculty_deletebtn" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function showConfirmationModal(id) {
+    $('#delete_id').val(id);
+    $('#deleteModal').modal('show');
+  }
+</script>
 <!-- /.container-fluid -->
 
 <?php

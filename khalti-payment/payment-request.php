@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_POST['submit'])) {
-    $amount = $_POST['inputAmount4']*100; // convert the amount to paisa as the amount should be in paisa for khalti
+    $amount = $_POST['inputAmount4']* 100; // convert the amount to paisa as the amount should be in paisa for khalti
     $purchase_order_id = $_POST['inputPurchasedOrderId4'];
     $purchase_order_name = $_POST['inputPurchasedOrderName'];
     $name = $_POST['inputName'];
@@ -77,6 +77,7 @@ if (isset($_POST['submit'])) {
     );
 
 }
+
 $jsonData = json_encode($postFields);
 
 $curl = curl_init();

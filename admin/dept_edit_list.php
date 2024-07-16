@@ -66,10 +66,32 @@ include('includes/navbar.php');
                 <label>Description</label>
                 <input type="text" name="edit_description" class="form-control" value=" <?php echo $rowediting['description']; ?>" required>
             </div>
+            <?php
+        $session = "SELECT * FROM session";
+        $dept_run = mysqli_query($conn,$session);
+
+        if(mysqli_num_rows($dept_run)>0){
+          ?>
             <div class="form-group">
-                <label>Section</label>
-                <input type="text" name="edit_section" class="form-control"  value="<?php echo $rowediting['section']; ?>" required>
+                 <label>Section</label>
+                <!-- <input type="text" name="edit_section" class="form-control"  value="<?php //echo $rowediting['section']; ?>" required> -->
+                <select name="edit_section" id="" class="form-control" required>
+                    <option value="<?php echo $rowediting['section']; ?>">Choose Your Section</option>
+                    <?php
+                      foreach($dept_run as $row){
+                    ?>
+                    <option value="<?php echo $row['session_id'];?>"><?php echo $row['shift']; ?></option>
+                    <?php
+                      }
+                    ?>
+                </select>
             </div>
+            <?php
+        }
+        else{
+          echo "No Data Available";
+        }
+        ?>
         
             <div class="form-group">
                 <a href="dept_list.php" class="btn-btn danger">CANCEL</a>

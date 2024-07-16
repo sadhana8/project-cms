@@ -101,38 +101,39 @@ include "dbconfig.php";
             <th> Phone</th>
             <!-- <th> guardians Name</th> -->
             <!-- <th> Created</th> -->
-            <!-- <th>EDIT </th> -->
-            <th>DELETE </th>
+            <th>EDIT </th>
+            <!-- <th>DELETE </th> -->
           </tr>
         </thead>
-        <tbody>
+      
+       
+        <button id="toggleButton" class="btn btn-primary">Show/Hide Information</button>
+         <div id="toggleContent" class="mt-3" style="display: none;">
+             <div class="card">
+                 <div class="card-body">
+                       <?php
+ 
+                        $sql = "SELECT * FROM student";
 
-        <?php
- // Include your database connection
+                           $result = $conn->query($sql);
 
-// SQL query to fetch all guardians
-    $sql = "SELECT * FROM student";
+                                 if ($result->num_rows > 0) {
+                                   while ($row = $result->fetch_assoc()) {
+       
+                                    echo "Student ID: " . $row['id'] . "<br>";
+                                     echo "Student name: " . $row['name'] . "<br>";
+        
+                                          echo "<hr>";
+                                           }
+                                    } else {
+                                  echo "No guardians found.";
+                                      }  
+                                    ?>
+            </div>
+          </div>
+        </div>
 
-      $result = $conn->query($sql);
-
-     if ($result->num_rows > 0) {
-         while ($row = $result->fetch_assoc()) {
-        // Display or process each guardian record
-        // echo "Guardian ID: " . $row['guardian_id'] . "<br>";
-        // echo "Guardian Name: " . $row['guardian_name'] . "<br>";
-        // echo "Email: " . $row['email'] . "<br>";
-        // echo "Phone: " . $row['phone'] . "<br>";
-        // echo "Address: " . $row['address'] . "<br>";
-        echo "Student ID: " . $row['id'] . "<br>";
-        echo "Student name: " . $row['name'] . "<br>";
-        // echo "Created At: " . $row['created_at'] . "<br>";
-        // echo "Updated At: " . $row['updated_at'] . "<br>";
-        echo "<hr>";
-        }
-       } else {
-       echo "No guardians found.";
-     }  
-?>
+      
     <tbody>
     <?php
  if(mysqli_num_rows($query_run)>0){
@@ -144,21 +145,18 @@ include "dbconfig.php";
       <td><?php  echo $row['email'];   ?></td>
       <td> <?php  echo $row['phone'];   ?> </td>
       <td> <?php  echo $row['address'];   ?> </td>
-      <!-- <td>
-          <form action="guardian_update.php" method="post">
-              <input type="hidden" name="edit_id" value="<?php //echo $row['guardian_id']; ?>">
+      <td>
+          <form action="guardianedit.php" method="post">
+              <input type="hidden" name="edit_guardian_id" value="<?php echo $row['guardian_id']; ?>">
               <button  type="submit" name="edit_btn" class="btn btn-success"> EDIT</button>
           </form>
-      </td> -->
-      <td>
-         <form action="gurdian_update.php" method="post">
-             <input type="hidden" name="delete_id" value="<?php echo $row['guardian_id']; ?>"> 
-            <button type="submit" name="delete_btn" class="btn btn-danger"> DELETE</button>
-          </form> 
-       
-          <!-- <button class="btn btn-danger"  data-toggle="modal" data-target="#deleteModal"> DELETE</button> -->
-          <!-- <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Delete </a> -->
       </td>
+      <!-- <td>
+      
+      <button type="button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" onclick="showConfirmationModal('<?php //echo $row['guardian_id']; ?>')">DELETE</button>
+            
+           
+      </td> -->
     </tr>
     <?php
     }
@@ -212,6 +210,44 @@ include "dbconfig.php";
 </div>
 
 </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this record? This action cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <form id="deleteForm" action="gurdian_update.php" method="POST">
+          <input type="hidden" name="delete_id" id="delete_id">
+          <button type="submit" name="delete_btn" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function showConfirmationModal(id) {
+    $('#delete_id').val(id);
+    $('#deleteModal').modal('show');
+  }
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#toggleButton').click(function() {
+                $('#toggleContent').toggle();
+            });
+        });
+    </script>
 <!-- /.container-fluid -->
 
 <?php

@@ -44,18 +44,39 @@ include('includes/navbar.php');
         }
         ?>
         <div class="form-group">
-                <label>  Name </label>
+                <label>  Subject Name </label>
                 <input type="text" name="name" class="form-control" placeholder="Enter name" required>
             </div>
             <div class="form-group">
                 <label>Description</label>
                 <input type="text" name="description" class="form-control" placeholder="Enter description" required>
             </div>
+            <?php
+        $department = "SELECT * FROM session";
+        $dept_run = mysqli_query($conn,$department);
+
+        if(mysqli_num_rows($dept_run)>0){
+          ?>
             <div class="form-group">
                 <label>Section</label>
-                <input type="text" name="section" class="form-control" required>
+                <!-- <input type="text" name="section" class="form-control" required> -->
+                <select name="section" id="" class="form-control" required>
+                    <option value="">Choose Your Section</option>
+                    <?php
+                      foreach($dept_run as $row){
+                    ?>
+                    <option value="<?php echo $row['session_id'];?>"><?php echo $row['shift']; ?></option>
+                    <?php
+                      }
+                    ?>
+                </select>
             </div>
-        
+            <?php
+        }
+        else{
+          echo "No Data Available";
+        }
+        ?>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -132,6 +153,10 @@ include('includes/navbar.php');
             $dpt_cate = "SELECT * FROM dept_category WHERE id='$dpt_cate_id'";
             $dpt_cate_run = mysqli_query($conn,$dpt_cate);
 
+            $dpt_sess_id = $row["section"];
+            $dpt_sess = "SELECT * FROM session WHERE session_id='$dpt_sess_id'";
+            $dpt_sess_run = mysqli_query($conn,$dpt_sess);
+
         ?>
             <tr>
             <td><?php  echo $row['id']; ?> </td>
@@ -140,7 +165,7 @@ include('includes/navbar.php');
             </td>
             <td> <?php  echo $row['name']; ?></td>
             <td><?php  echo $row['description']; ?></td>
-            <td><?php  echo $row['section']; ?></td>
+            <td> <?php foreach($dpt_sess_run as $dpt_row) {echo $dpt_row['shift'];} ?></td>
             
             <td>
               <form action="dept_edit_list.php" method="POST">

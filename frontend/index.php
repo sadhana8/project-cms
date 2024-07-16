@@ -122,8 +122,16 @@
 		<section class="ftco-section ftco-no-pt ftc-no-pb">
 			<div class="container">
 				<div class="row d-flex">
-					<div class="col-md-5 order-md-last wrap-about wrap-about d-flex align-items-stretch">
-						<div class="img" style="background-image: url(images/about.jpg); "></div>
+					<div class="col-md-4 order-md-last wrap-about py-4 pr-md-6 wrap-about d-flex ">
+					<div class="align-items-stretch d-flex">
+    				<div class="img img-video d-flex align-items-center" style="background-image: url(images/cloude.jpg); height: 800px; width: 500px; ">
+    					<div class="video justify-content-center">
+								<a href="images/video.mp4" class="icon-video popup-vimeo d-flex justify-content-center align-items-center">
+									<span class="ion-ios-play"></span>
+		  					</a>
+							</div>
+    				</div>
+    			</div>
 					</div>
 					<div class="col-md-7 wrap-about py-5 pr-md-4 ftco-animate">
           	<h2 class="mb-4">What We Offer</h2>
@@ -564,34 +572,29 @@
     	<div class="container-wrap">
 			
     		<div class="row no-gutters">
+			<?php
+    include "../admin/dbconfig.php";
+    $query = "SELECT * FROM student";
+    $query_run = mysqli_query($conn,$query);
+  
+    if(mysqli_num_rows($query_run)>0){
+		while($row = mysqli_fetch_assoc($query_run)){
+    ?>
+	
 						<div class="col-md-3 ftco-animate">
-						<a href="images/image_1.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/course-1.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
+						<a href="../admin/upload/student/<?php echo $row['image']; ?>" class="gallery image-popup img d-flex align-items-center">
+						<img src="../admin/upload/student/<?php echo $row['image']; ?>" style="height:350px; width:380px;">
+							<!-- <div class="icon mb-4 d-flex align-items-center justify-content-center">
     						<span class="icon-instagram"></span>
-    					</div>
+    					</div> -->
 						</a>
 					</div>
-					<div class="col-md-3 ftco-animate">
-						<a href="images/image_2.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/image_2.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-					<div class="col-md-3 ftco-animate">
-						<a href="images/image_3.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/image_3.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
-					<div class="col-md-3 ftco-animate">
-						<a href="images/image_4.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/image_4.jpg);">
-							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="icon-instagram"></span>
-    					</div>
-						</a>
-					</div>
+					
+					<?php
+        }
+          }
+        ?>
+
         </div>
     	</div>
     </section>

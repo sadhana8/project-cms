@@ -14,7 +14,11 @@ include('includes/navbar.php');
 <title>Home</title>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -34,7 +38,7 @@ include('includes/navbar.php');
 
             <div class="form-group">
                 <label> Username </label>
-                <input type="text" name="username" class="form-control    check_mail"  placeholder="Enter Username">
+                <input type="text" name="username" class="form-control check_mail"  placeholder="Enter Username">
                 <small class="error_email" style="color:red;"></small>
             </div>
             <div class="form-group">
@@ -95,15 +99,7 @@ include('includes/navbar.php');
   
     <?php
     include "dbconfig.php";
-    // $limit = 3;
-                    
-    // if(isset($_GET['page'])){
-    //    $page = $_GET['page'];
-    // }else{
-    //    $page =1;
-    // }
-    // $offset = ($page - 1 ) * $limit;
-    $query = "SELECT * FROM register ";
+    $query = "SELECT * FROM register";
     $query_run = mysqli_query($conn,$query);
     ?>
 
@@ -138,13 +134,7 @@ include('includes/navbar.php');
                 </form>
             </td>
             <td>
-               <form action="code.php" method="post">
-                   <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>"> 
-                  <button type="submit" name="delete_btn" class="btn btn-danger"> DELETE</button>
-                </form> 
-             
-                <!-- <button class="btn btn-danger"  data-toggle="modal" data-target="#deleteModal"> DELETE</button> -->
-                <!-- <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">Delete </a> -->
+                <button type="button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" onclick="showConfirmationModal('<?php echo $row['id']; ?>')">DELETE</button>
             </td>
           </tr>
           <?php
@@ -160,40 +150,7 @@ include('includes/navbar.php');
       </table>
 </div>
       <div class="clearfix">
-					     <!-- <div class="hint-text">showing <b>5</b> out of <b>25</b></div> -->
-					   <?php
-                                      
-                                       $sql1 = "SELECT * FROM register";
-                                       $result1 = mysqli_query($conn,$sql1) or die("Query FAiled.");
-
-                    //                    if(mysqli_num_rows($result1) >0){
-                    //                     $total_records = mysqli_num_rows($result1);
-                    //                     $limit = 3;
-                    //                     $total_page = ceil( $total_records / $limit);
-
-
-										// echo '<ul class="pagination">';
-                    //                    if($page >1){
-                                        // echo '<li><a href="users.php?page='.($page-1).'">Prev</a></li>';
-                                      //   echo '<li class="page-item disabled"><a href="register.php?page='.($page-1).'">Previous</a></li>';                                       
-                                      //  }                                        
-                                      //   for($i = 1; $i <= $total_page; $i++){
-                                      //       if($i== $page){
-                                      //           $active = "active";
-                                      //       }
-                                      //       else{
-                                      //           $active = "";
-                                      //       }
-                                            // echo '<li class="'.$active.'"><a href="users.php?page='.$i.'">'.$i.'</a></li>';
-                                        //     echo '<li class="'.$active.'" class="page-item "><a href="register.php?page='.$i.'"class="page-link">'.$i.'</a></li>';
-                                        // }
-                                        // if($total_page >$page){
-                                            // echo '<li><a  href="users.php?page='.($page+1).'">Next</a></li>';
-                                      //       echo '<li class="page-item "><a href="register.php?page='.($page+1).'" class="page-link">Next</a></li>';
-                                      //      }
-                                      //   echo '</ul>';
-                                      //  }
-                                       ?>   
+					   <!-- Pagination code if needed -->
 					   </div>
   </div>
 
@@ -201,32 +158,37 @@ include('includes/navbar.php');
   </div>
 </div>
 
-</div>
-<!-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Are You Sure To Delete</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Delete" below if you are ready to delete this row.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-
-          <form action="code.php" method="POST"> 
-          <input type="hidden" name="delete_id" value="<?php //echo $row['id']; ?>">
-            <button type="submit" name="delete_btn" class="btn btn-primary">Delete</button>
-          </form>
-
-
-        </div>
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this record? This action cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <form id="deleteForm" action="code.php" method="POST">
+          <input type="hidden" name="delete_id" id="delete_id">
+          <button type="submit" name="delete_btn" class="btn btn-danger">Delete</button>
+        </form>
       </div>
     </div>
-  </div> -->
-<!-- /.container-fluid -->
+  </div>
+</div>
+<script type="text/javascript">
+  function showConfirmationModal(id) {
+    $('#delete_id').val(id);
+    $('#deleteModal').modal('show');
+  }
+</script>
 
+<!-- Existing scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
@@ -237,11 +199,11 @@ include('includes/navbar.php');
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
 <script type="text/javascript" src="script.js"></script>
 
+<!-- JavaScript to handle delete confirmation -->
+
+
 </body>
 </html>
-
-
-
 
 <?php
 // include('includes/scripts.php');

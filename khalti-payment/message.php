@@ -27,7 +27,7 @@
                 <div class="card-body text-white bg-success">
                     <h5 class="card-title">Dear Customer,</h5>
                     <p class="card-text">
-                        Your payment has been successfully processed. Thank you for shopping with us.
+                        Your payment has been successfully processed. Thank you for choosing us.
                     </p>
                 </div>
                 <div class="card-footer">
