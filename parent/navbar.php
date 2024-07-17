@@ -37,7 +37,7 @@
 <li class="nav-item">
   <a class="nav-link" href="../student/attendenceview.php">
     <i class="fas fa-fw fa-user"></i>
-    <span>Attendance</span></a>
+    <span>Student Attendance</span></a>
 </li>
 <li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseTwo">

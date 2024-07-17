@@ -24,7 +24,7 @@ include('includes/navbar.php');
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Register Profile</div>
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="register.php">Total Register Profile</a></div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
          <?php
          include "dbconfig.php";
@@ -52,7 +52,7 @@ include('includes/navbar.php');
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Students</div>
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="student.php">Total Students</a></div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
             <?php
          include "dbconfig.php";
@@ -76,7 +76,7 @@ include('includes/navbar.php');
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Teacher</div>
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="faculty.php">Total Teacher</a></div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
             <?php
          include "dbconfig.php";
@@ -102,7 +102,7 @@ include('includes/navbar.php');
         <div class="card-body">
         <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Course</div>
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a href="departments.php">Total Course</a></div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
             <?php
          include "dbconfig.php";

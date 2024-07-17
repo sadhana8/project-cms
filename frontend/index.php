@@ -16,7 +16,7 @@
             <button type="submit" placeholder="" class="form-control search"><span class="ion-ios-search"></span></button>
           </div>
         </form> -->
-		<form action="../admin/search.php" class="searchform order-lg-last">
+		<form action="../admin/search.php" class=" order-lg-last">
 		<div class="col-md topper d-flex align-items-center justify-content-end">
 					    	<p class="mb-0">
 					    		<a href="../admin/login.php" class="btn py-2 px-3 btn-primary d-flex align-items-center justify-content-center">
@@ -47,8 +47,8 @@
           <div class="row no-gutters slider-text align-items-center justify-content-start" data-scrollax-parent="true">
           <div class="col-md-6 ftco-animate">
             <h1 class="mb-4">Education Needs Complete Solution</h1>
-            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-            <p><a href="contactpagecode.php" class="btn btn-primary px-4 py-3 mt-3">Contact Us</a></p>
+            <!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
+            <p><a href="contact.php" class="btn btn-primary px-4 py-3 mt-3">Contact Us</a></p>
           </div>
         </div>
         </div>
@@ -60,7 +60,7 @@
           <div class="row no-gutters slider-text align-items-center justify-content-start" data-scrollax-parent="true">
           <div class="col-md-6 ftco-animate">
             <h1 class="mb-4">University, College School Education</h1>
-            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+            <!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
             <p><a href="#" class="btn btn-primary px-4 py-3 mt-3">Contact Us</a></p>
           </div>
         </div>
@@ -292,7 +292,7 @@
 				<div class="row justify-content-center mb-5 pb-2">
           <div class="col-md-8 text-center heading-section ftco-animate">
             <h2 class="mb-4"><span>Our</span> Courses</h2>
-            <p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p>
+            <!-- <p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p> -->
           </div>
         </div>	
 		<div class="row">
@@ -331,7 +331,7 @@
 				<div class="row justify-content-center mb-5 pb-2">
           <div class="col-md-8 text-center heading-section ftco-animate">
             <h2 class="mb-4">Certified Teachers</h2>
-            <p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p>
+            <!-- <p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p> -->
           </div>
         </div>	
 		<div class="row">
@@ -436,7 +436,7 @@
 				<div class="row justify-content-center mb-5 pb-2">
           <div class="col-md-8 text-center heading-section ftco-animate">
             <h2 class="mb-4"><span>Recent</span> Events</h2>
-            <p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p>
+            <!-- <p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p> -->
           </div>
         </div>
 				<div class="row">
