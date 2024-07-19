@@ -4,15 +4,15 @@ include('header.php');
 include('navbar.php'); 
 include "../admin/dbconfig.php";
 
-
-
 // if (isset($_POST['submit'])) {
-//     $teacher_id = $_POST['teacher_id'];
-//     $subject_id = $_POST['subject_id'];
+//     $dept_cate_id = $_POST['dept_cate_id'];
+//     $name = $_POST['name'];
+//     $description = $_POST['description'];
+//     $section = $_POST['section'];
 
-//     $sql = "INSERT INTO allocation (teacher_id, subject_id) VALUES ('$teacher_id', '$subject_id')";
+//     $sql = "INSERT INTO dept_list (dept_cate_id, name, description, section) VALUES ('$dept_cate_id', '$name', '$description', '$section')";
 //     if ($conn->query($sql) === TRUE) {
-//         echo "Subject allocated successfully";
+//         echo "Department added successfully";
 //     } else {
 //         echo "Error: " . $sql . "<br>" . $conn->error;
 //     }
@@ -20,26 +20,27 @@ include "../admin/dbconfig.php";
 
 ?>
 <head>
-    <title>Manage allocation</title>
+    <title>Manage Department List</title>
 </head>
 <body>
-    <!-- <h1>Manage Periods</h1>
+    <!-- <h1>Manage Departments</h1>
     <form method="POST">
-        <label>Title:</label><input type="text" name="name"  required><br>
-        <label>Start Time:</label><input type="time" name="start_time" required><br>
-        <label>End Time:</label><input type="time" name="end_time" required><br>
-        <button type="submit">Add Period</button>
+        <label>Category ID:</label><input type="text" name="dept_cate_id" required><br>
+        <label>Name:</label><input type="text" name="name" required><br>
+        <label>Description:</label><input type="text" name="description" required><br>
+        <label>Section:</label><input type="text" name="section" required><br>
+        <button type="submit">Add Department</button>
     </form> -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Manage Subject Allocation</h1>
+            <h1 class="m-0 text-dark">Manage Department List</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Admin</a></li>
-              <li class="breadcrumb-item active">Subject Allocation</li>
+              <li class="breadcrumb-item active">Department List</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -56,7 +57,7 @@ include "../admin/dbconfig.php";
             <div class="card">
               <div class="card-header py-2">
                 <h3 class="card-title">
-               Subject Allocation
+               Department List
                 </h3>
                 <div class="card-tools">
                 </div>
@@ -73,34 +74,28 @@ include "../admin/dbconfig.php";
                            $page =1;
                         }
                         $offset = ($page - 1 ) * $limit;
-                        $query = "SELECT * FROM allocation ORDER BY id LIMIT {$offset},{$limit}";
+                        $query = "SELECT * FROM dept_list ORDER BY id LIMIT {$offset},{$limit}";
                         $query_run = mysqli_query($conn,$query)or die("Query Failed.");
                 if(mysqli_num_rows($query_run)>0){
     ?>
  
  <table class="table table-bordered">
     <tr>
-        <th>Allocation ID</th>
-        <th>Faculty Name</th>
-        <th>Subject Name</th>
+        <th>Department ID</th>
+        <th>Category ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Section</th>
     </tr>
     <?php
-    $sql = "SELECT allocation.id as alloc_id, faculty.name as name, subject.subject_name as subject_name
-            FROM allocation
-            JOIN faculty ON allocation.teacher_id = faculty.id
-            JOIN subject ON allocation.subject_id = subject.subject_id";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>
-                    <td>" . $row['alloc_id'] . "</td>
-                    <td>" . $row['name'] . "</td>
-                    <td>" . $row['subject_name'] . "</td>
-                  </tr>";
-        }
-    } else {
-        echo "0 results";
+    while ($row = $query_run->fetch_assoc()) {
+        echo "<tr>
+                <td>" . $row['id'] . "</td>
+                <td>" . $row['dept_cate_id'] . "</td>
+                <td>" . $row['name'] . "</td>
+                <td>" . $row['description'] . "</td>
+                <td>" . $row['section'] . "</td>
+              </tr>";
     }
     ?>
 </table>
@@ -109,8 +104,8 @@ include "../admin/dbconfig.php";
 					     <!-- <div class="hint-text">showing <b>5</b> out of <b>25</b></div> -->
 					   <?php
                                       }
-                                       $sql1 = "SELECT * FROM allocation";
-                                       $result1 = mysqli_query($conn,$sql1) or die("Query FAiled.");
+                                       $sql1 = "SELECT * FROM dept_list";
+                                       $result1 = mysqli_query($conn,$sql1) or die("Query Failed.");
 
                                        if(mysqli_num_rows($result1) >0){
                                         $total_records = mysqli_num_rows($result1);
@@ -120,8 +115,7 @@ include "../admin/dbconfig.php";
 
 										echo '<ul class="pagination">';
                                        if($page >1){
-                                        // echo '<li><a href="users.php?page='.($page-1).'">Prev</a></li>';
-                                        echo '<li class="page-item disabled"><a href="create_faculty.php?page='.($page-1).'">Previous</a></li>';                                       
+                                        echo '<li class="page-item"><a href="manage_department.php?page='.($page-1).'">Previous</a></li>';                                       
                                        }                                        
                                         for($i = 1; $i <= $total_page; $i++){
                                             if($i== $page){
@@ -130,12 +124,10 @@ include "../admin/dbconfig.php";
                                             else{
                                                 $active = "";
                                             }
-                                            // echo '<li class="'.$active.'"><a href="users.php?page='.$i.'">'.$i.'</a></li>';
-                                            echo '<li class="'.$active.'" class="page-item "><a href="create_faculty.php?page='.$i.'"class="page-link">'.$i.'</a></li>';
+                                            echo '<li class="'.$active.' page-item"><a href="manage_department.php?page='.$i.'" class="page-link">'.$i.'</a></li>';
                                         }
                                         if($total_page >$page){
-                                            // echo '<li><a  href="users.php?page='.($page+1).'">Next</a></li>';
-                                            echo '<li class="page-item "><a href="create_faculty.php?page='.($page+1).'" class="page-link">Next</a></li>';
+                                            echo '<li class="page-item"><a href="manage_department.php?page='.($page+1).'" class="page-link">Next</a></li>';
                                            }
                                         echo '</ul>';
                                        }
@@ -151,45 +143,29 @@ include "../admin/dbconfig.php";
              <div class="card">
               <div class="card-header py-1">
                 <h3 class="card-title">
-                  Add New Subject allocation
+                  Add New Department
                 </h3>
               </div>
               <div class="card-body">
               <form method="post" >
                 <div>
-                <label>Teacher:</label>
-    <select name="teacher_id" required class="form-control">
-        <option value="">Select teacher</option>
-        <?php
-        // $sql = "SELECT * FROM faculty";
-        // $result = $conn->query($sql);
-        // if ($result->num_rows > 0) {
-        //     while ($row = $result->fetch_assoc()) {
-        //         echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
-        //     }
-        // }
-        ?>
-    </select>
+                <label>Category ID:</label>
+    <input type="text" name="dept_cate_id" required class="form-control">
     </div>
     <div>
-    <label>Subject:</label>
-    <select name="subject_id" required class="form-control">
-        <option value="">Select Subject</option>
-        <?php
-        // $sql = "SELECT * FROM subject";
-        // $result = $conn->query($sql);
-        // if ($result->num_rows > 0) {
-        //     while ($row = $result->fetch_assoc()) {
-        //         echo "<option value='" . $row['subject_id'] . "'>" . $row['subject_name'] . "</option>";
-        //     }
-        // }
-        ?>
-    </select>
+    <label>Name:</label>
+    <input type="text" name="name" required class="form-control">
+    </div>
+    <div>
+    <label>Description:</label>
+    <input type="text" name="description" required class="form-control">
+    </div>
+    <div>
+    <label>Section:</label>
+    <input type="text" name="section" required class="form-control">
     </div><br>
     <div>
-    <button type="submit" name="submit" class="btn btn-success float-right">Add Period</button>
-    
-    
+    <button type="submit" name="submit" class="btn btn-success float-right">Add Department</button>
 </form>
               </div>
             </div>
